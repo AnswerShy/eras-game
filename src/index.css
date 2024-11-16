@@ -1,0 +1,322 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #212121;
+    --text-color: #212121;
+
+    --background-color: #ffffff;
+  }
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+
+  color: rgba(255, 255, 255, 0.87);
+  --background-color: #212121;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --text-color: rgba(255, 255, 255, 0.87);
+
+  --primaryColor: #b71c1c;
+  --primaryColorDarken: #801313;
+  --primaryColorLighten: #c54949;
+}
+
+.mainWindow {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: space-around;
+}
+
+body {
+  background-color: var(--background-color);
+  margin: 0;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+
+  text-align: center;
+}
+h2 {
+  font-size: 1.6em;
+  line-height: 1.1;
+  width: 50%;
+  text-align: center;
+}
+
+a {
+  color: var(--text-color);
+  margin-top: 50px;
+
+  width: 500px;
+
+  height: 5vh;
+  min-height: 50px;
+
+  border-radius: 8px;
+  border: 1px solid transparent;
+
+  font-size: 1.5em;
+  font-weight: 500;
+  font-family: inherit;
+  text-align: center;
+
+  background-color: transparent;
+  cursor: pointer;
+
+  text-decoration: none;
+
+  transition: color 0.25s;
+}
+
+a:visited {
+  color: var(--text-color);
+}
+
+a:hover {
+  color: var(--primaryColor);
+  animation: text-animate 1s infinite linear;
+}
+
+@keyframes text-animate {
+  0% {
+    font-family: Inter, sans-serif;
+  }
+  25% {
+    font-family: "Caveat", cursive;
+    font-style: normal;
+  }
+  50% {
+    font-family: "Old Standard TT", serif;
+    font-style: normal;
+  }
+  75% {
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+  }
+  100% {
+    font-family: "Pacifico", cursive;
+    font-style: normal;
+  }
+}
+
+.strichka {
+  height: 100%;
+  width: 250px;
+
+  background-image: url("/strichka.svg");
+  background-size: cover;
+  background-repeat: repeat-y;
+
+  position: absolute;
+  left: 0;
+  z-index: -1;
+
+  animation: strichka-anim 60s infinite linear;
+}
+
+@keyframes strichka-anim {
+  from {
+    background-position: 0% 0px;
+  }
+  to {
+    background-position: 0% 5222px;
+  }
+}
+
+.targetName {
+  animation: targetName-anim 10s ease-out;
+}
+
+@keyframes targetName-anim {
+  from {
+    filter: blur(50px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}
+
+.selected-element {
+  border: var(--primaryColor) 4px solid;
+  box-sizing: border-box;
+  filter: none !important;
+}
+
+/* Choose Many */
+
+.imageContainer {
+  padding: 5px;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  align-content: center;
+  justify-content: center;
+
+  height: fit-content;
+  width: 500px;
+
+  gap: 25px;
+  padding: 25px;
+}
+
+.imageCard {
+  width: 150px;
+  height: 150px;
+
+  background-size: cover;
+  background-position: 50% 50%;
+  background-image: attr(data-image);
+
+  position: relative;
+  filter: grayscale(1);
+
+  transition: filter .5s;
+}
+
+.imageCard:hover {
+  cursor: pointer;
+  filter: grayscale(0.5);
+  z-index: 999;
+}
+
+.imageCard:hover .imageCardIn {
+  display: flex;
+}
+
+.imageCardIn {
+  pointer-events: none;
+
+  display: none;
+  position: absolute;
+  
+
+  height: 150%;
+  width: 150%;
+
+  background-size: cover;
+  background-position: 50% 50%;
+
+  left: 0;
+  top: 0;
+
+  transform: translate(-20%, -20%);
+
+  animation: card 1s steps(2, end) infinite;
+}
+
+@keyframes card {
+  50% {
+    height: 150%;
+    width: 150%;
+    transform: translate(-20%, -20%) rotate(-1deg);
+  }
+  100% {
+    height: 155%;
+    width: 155%;
+    transform: translate(-25%, -25%) rotate(1deg);
+  }
+}
+
+/* WHEEL */
+
+.imageCardWheel {
+  min-width: 150px;
+  min-height: 150px;
+
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.wheel-container {
+  width: 500px;
+  overflow: hidden;
+
+  position: relative;
+}
+
+.wheel-arrow {
+  height: 25px;
+  width: 7px;
+
+  position: absolute;
+  z-index: 1;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  border-radius: 0 0 24px 24px;
+
+  background-color: var(--primaryColor);
+}
+
+.arrow-top {
+  border-radius: 0 0 24px 24px;
+}
+
+.arrow-bot {
+  border-radius: 24px 24px 0 0;
+  bottom: 0;
+}
+
+.wheel {
+  display: flex;
+  gap: 15px;
+  width: max-content;
+  animation: moveWheel 20s linear infinite;
+}
+
+@keyframes moveWheel {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-3465px); }
+}
+
+.stopButton {
+  width: 500px;
+  height: 50px;
+
+  margin-top: 50px;
+
+  background-color: var(--primaryColor);
+  color: white;
+
+  border: none;
+  border-radius: 12px;
+
+  font-size: xx-large;
+}
+
+.stopButton:hover {
+  cursor: pointer;
+  animation: text-animate 1s infinite linear;
+}
+
+.rules {
+  font-size: x-large;
+
+  width: 50%;
+  margin-top: 50px;
+}
+
+br {
+  margin-top: 5px;
+}
