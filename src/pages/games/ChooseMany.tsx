@@ -1,4 +1,4 @@
-import { DOMElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const usedAnswers: number[] = [];
 let tries = 1
@@ -177,15 +177,16 @@ export default function ChooseManyPage() {
         return () => clearInterval(timer);
     }, []);
 
-    const logic = (userAnswer: string, e: DOMElement) => {
-        if(userAnswer == answerTargetSlug && !e.target.classList.contains("selected-element") && tries <= answers.length) {
-            e.target.classList.add("selected-element")
+    const logic = (userAnswer: string, e: React.MouseEvent<HTMLElement>) => {
+        const target = e.target as HTMLElement
+        if(userAnswer == answerTargetSlug && !target.classList.contains("selected-element") && tries <= answers.length) {
+            target.classList.add("selected-element")
             setScore(prevScore => prevScore + 10);
             tries += 1
             console.log(tries, answers.length, 'added', )
         }
-        else if(userAnswer != answerTargetSlug && !e.target.classList.contains("selected-element") && tries <= answers.length) {
-            e.target.classList.add("selected-element")
+        else if(userAnswer != answerTargetSlug && !target.classList.contains("selected-element") && tries <= answers.length) {
+            target.classList.add("selected-element")
             tries += 1
             console.log(tries, answers.length, 'xyi')
         }
