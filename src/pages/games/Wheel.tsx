@@ -31,6 +31,8 @@ const doesSlugAvaliable = (data: data[], slug: string): boolean => {
 export default function Wheel() {
     const [isGameGoing, setIsGameGoing] = useState(true)
     const [timeLeft, setTimeLeft] = useState(60)
+    const [triesLeft, setTriesLeft] = useState(0)
+    const [article, setArticle] = useState("")
 
     const [data, setData] = useState<data[] | null>(null);
     const [wheelElements, setWheelElements] = useState<JSX.Element[]>([])
@@ -45,15 +47,13 @@ export default function Wheel() {
             .then((response) => response.json())
             .then((jsonData) => {
                 setData(jsonData);
+                setTriesLeft(jsonData.length / 3 - tries + 1)
             })
             .catch((error) => console.error("Error fetching data:", error));
     }, []);
 
     const reselectAnswers = () => {
-        if (data && data.length > usedAnswers.length) {
-            // TRIES RECOVER
-            tries = 0
-            
+        if (data && data.length > usedAnswers.length) {   
             // SELECT RANDOM SLUG FOR ASNWERS
             let random_slug_select
 
@@ -66,6 +66,7 @@ export default function Wheel() {
             )
 
             setAnswerTargetSlug(data[random_slug_select].slug)
+            setArticle(data[random_slug_select].name)
             const answerTargetSlugVar = data[random_slug_select].slug
             
             // SELECT INDEXES FOR ANSWERS
@@ -83,7 +84,7 @@ export default function Wheel() {
             }
 
             usedAnswers.push(...indexes_of_answers);
-    
+            
             setAnswers(indexes_of_answers);
             randomPictures()
         } 
@@ -119,7 +120,9 @@ export default function Wheel() {
             }
 
             const elements = random_indexes_for_pictures.map((index, i) => (
-                <div data-slug={data[index].slug} className="imageCardWheel" style={{ backgroundImage: `url(${data[index].pic ? data[index].pic : "/vite.svg"})`}} key={i}></div>
+                <div data-slug={data[index].slug} className="imageCardWheel" style={{ backgroundImage: `url(${data[index].pic ? data[index].pic : "/vite.svg"})`}} key={i}>
+                    <div className="imageCardWheel-text">{data[index].item}</div>
+                </div>
             ))
 
             setWheelElements(elements)
@@ -149,6 +152,10 @@ export default function Wheel() {
 
         const arrowCenter = window.innerWidth / 2;
 
+        if(data && tries >= data?.length / 3) {
+            setIsGameGoing(false)
+        }
+
         document.querySelectorAll('.imageCardWheel').forEach((section) => {
             const rect = section.getBoundingClientRect();
             if (rect.left < arrowCenter && rect.right > arrowCenter) {
@@ -156,7 +163,8 @@ export default function Wheel() {
                     setScore(prev => prev + 1)
                 }
                 reselectAnswers()
-                tries += 1
+                tries = tries + 1
+                if(data) setTriesLeft((data.length / 3 - tries) + 1)   
                 if (wheel) {
                     wheel.style.animationPlayState = 'running';
                 }
@@ -166,18 +174,14 @@ export default function Wheel() {
                     wheel.style.animationPlayState = 'running';
                 }
             }
-        });
-        if(data && tries > data?.length / 3) {
-            setIsGameGoing(false)
-        }
+        });       
     }
 
     return isGameGoing ? (
         <>
-            <h1>Оберіть предмети які відносяться до</h1>
-            <h2 key={answerTargetSlug}>{answerTargetSlug}</h2>
+            <h1 key={article}>Оберіть предмети які відносяться до епохи <b>{article}</b></h1>
             <h2>{score}</h2>
-            <h2 className="timer">Залишилось часу: {timeLeft}</h2>
+            <h1 className="timer">{timeLeft}<br/>спроб: {triesLeft}</h1>
             <div className="wheel-container">
                 <div className="wheel-arrow arrow-top"></div>
                 <div className="wheel">

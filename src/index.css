@@ -1,9 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Pacifico&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -23,6 +18,7 @@
 
   color: rgba(255, 255, 255, 0.87);
   --background-color: #212121;
+  --background-button: #313131;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -34,6 +30,8 @@
   --primaryColor: #b71c1c;
   --primaryColorDarken: #801313;
   --primaryColorLighten: #c54949;
+
+  --shadow: 0px 4px 12px black;
 }
 
 .mainWindow {
@@ -47,6 +45,7 @@
 body {
   background-color: var(--background-color);
   margin: 0;
+  font-family: Inter, sans-serif;
 }
 
 h1 {
@@ -60,11 +59,16 @@ h2 {
   line-height: 1.1;
   width: 50%;
   text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 a {
   color: var(--text-color);
   margin-top: 50px;
+  line-height: 1.2;
 
   width: 500px;
 
@@ -93,28 +97,63 @@ a:visited {
 
 a:hover {
   color: var(--primaryColor);
-  animation: text-animate 1s infinite linear;
+  animation: text-animate 5s infinite linear;
+  
 }
 
+b {
+  font-family: "Caveat", serif;
+  font-style: normal;
+  font-size: 3.6rem;
+}
 @keyframes text-animate {
   0% {
     font-family: Inter, sans-serif;
+    transform: translate(0, 0);
   }
-  25% {
+  10% {
     font-family: "Caveat", cursive;
-    font-style: normal;
+    transform: translate(1px, -2px);
+  }
+  20% {
+    font-family: "Roboto", sans-serif;
+    transform: translate(-2px, 1px);
+  }
+  30% {
+    font-family: "Old Standard TT", serif;
+    transform: translate(3px, 0);
+  }
+  40% {
+    font-family: "Lobster", cursive;
+    transform: translate(-1px, 2px);
   }
   50% {
-    font-family: "Old Standard TT", serif;
-    font-style: normal;
-  }
-  75% {
     font-family: "Montserrat", sans-serif;
-    font-style: normal;
+    transform: translate(2px, -1px);
+  }
+  55% {
+    font-family: "Playfair Display", serif;
+    transform: translate(-3px, 1px);
+  }
+  60% {
+    font-family: "Pacifico", cursive;
+    transform: translate(1px, 3px);
+  }
+  70% {
+    font-family: "Merriweather", serif;
+    transform: translate(-2px, -2px);
+  }
+  80% {
+    font-family: "Old Standard TT", serif;
+    transform: translate(3px, -1px);
+  }
+  90% {
+    font-family: "Arial", sans-serif;
+    transform: translate(-1px, 3px);
   }
   100% {
-    font-family: "Pacifico", cursive;
-    font-style: normal;
+    font-family: Inter, sans-serif;
+    transform: translate(0, 0);
   }
 }
 
@@ -161,6 +200,17 @@ a:hover {
   filter: none !important;
 }
 
+/* TIMER */
+
+.timer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: fit-content;
+  padding: 10px 20px;
+  margin: 0;
+}
+
 /* Choose Many */
 
 .imageContainer {
@@ -201,6 +251,8 @@ a:hover {
 
 .imageCard:hover .imageCardIn {
   display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
 }
 
 .imageCardIn {
@@ -222,6 +274,19 @@ a:hover {
   transform: translate(-20%, -20%);
 
   animation: card 1s steps(2, end) infinite;
+  box-shadow: var(--shadow);
+}
+
+.imageCard a {
+  color: white;
+  background-color: var(--background-button);
+  padding: 0 10px;
+  width: 100%;
+  height: fit-content;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @keyframes card {
@@ -245,6 +310,28 @@ a:hover {
 
   background-size: cover;
   background-position: 50% 50%;
+}
+
+.imageCardWheel-text {
+  position: absolute;
+  bottom: 0px;
+  font-size: .9rem;
+
+  color: white;
+  background-color: var(--background-button);
+  width: 150px;
+  max-width: 150px;
+  
+  height: fit-content;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 150px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .wheel-container {
@@ -307,16 +394,29 @@ a:hover {
 
 .stopButton:hover {
   cursor: pointer;
-  animation: text-animate 1s infinite linear;
+  animation: text-animate 10s infinite linear;
 }
+
+/* RULES */
 
 .rules {
   font-size: x-large;
 
   width: 50%;
-  margin-top: 50px;
+  margin: 0px;
 }
 
 br {
   margin-top: 5px;
+}
+
+.animOff {
+  font-family: "Roboto", sans-serif;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.disable-animations *:not(.wheel) {
+  animation: none !important;
 }

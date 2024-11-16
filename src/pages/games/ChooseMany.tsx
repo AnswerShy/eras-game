@@ -140,7 +140,7 @@ export default function ChooseManyPage() {
             
                 const elements = random_indexes_for_pictures.map((index) => (
                     <div onClick={(e) => logic(data[index].slug, e)} data-index={index} data-slug={data[index].slug} data-item={data[index].item} className="imageCard" style={{ backgroundImage: `url(${data[index].pic ? data[index].pic : "/vite.svg"})`}} key={index}>
-                        <div className="imageCardIn" style={{ backgroundImage: `url(${data[index].pic ? data[index].pic : "/vite.svg"})`}}></div>
+                        <div className="imageCardIn" style={{ backgroundImage: `url(${data[index].pic ? data[index].pic : "/vite.svg"})`}}><a>{data[index].item}</a></div>
                     </div>
                 ))
                 setPicturesElements(elements)
@@ -197,10 +197,9 @@ export default function ChooseManyPage() {
 
     return isGameGoing ? (
         <>
-            <h1>Оберіть предмети які відносяться до</h1>
-            <h2 key={article}>{article}</h2>
-            <h2 className="timer">Залишилось часу: {timeLeft}</h2>
-            <h3>кількість вірних відповідей на екрані: {ansersLength}</h3>
+            <h1 key={article}>Оберіть предмети які відносяться до епохи <b>{article}</b></h1>
+            <h1 className="timer">{timeLeft}</h1>
+            <h2>кількість вірних відповідей на екрані: {ansersLength}</h2>
             <div className="imageContainer">
                 {picturesElements}
             </div>
