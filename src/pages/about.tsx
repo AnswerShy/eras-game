@@ -1,6 +1,6 @@
 export default function About() {
     return(
-        <section style={{ backgroundColor: "var(--background-color)", display: "flex", position: "absolute", height: "100svh", top: "0" }}>
+        <section style={{ display: "flex", position: "absolute", top: "0" }}>
             <div className="rules">
             Вибір серед багатьох. Опис гри та правила
             <br/>            

@@ -1,14 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Pacifico&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #212121;
-    --text-color: #212121;
-
-    --background-color: #ffffff;
-  }
-}
-
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -16,8 +7,10 @@
 
   color-scheme: light dark;
 
-  color: rgba(255, 255, 255, 0.87);
-  --background-color: #212121;
+  color: rgba(31, 31, 31, 0.87);
+  --text-color: rgba(31, 31, 31, 0.87);
+  --background-color: #ffffff;
+
   --background-button: #313131;
 
   font-synthesis: none;
@@ -25,7 +18,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --text-color: rgba(255, 255, 255, 0.87);
+
 
   --primaryColor: #b71c1c;
   --primaryColorDarken: #801313;
@@ -33,6 +26,21 @@
 
   --shadow: 0px 4px 12px black;
 }
+
+.dark {
+  color: #ffd6d6;
+  --text-color: #ffd6d6;
+  --background-color: #212121;
+}
+
+/* 
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #ffd6d6;
+    --text-color: #ffd6d6;
+    --background-color: #212121;
+  }
+} */
 
 .mainWindow {
   display: flex;
@@ -44,8 +52,11 @@
 
 body {
   background-color: var(--background-color);
+  color: var(--text-color);
   margin: 0;
   font-family: Inter, sans-serif;
+  transition: background-color 5s linear ease-in-out, color 5s linear ease-in-out;
+  user-select: none;
 }
 
 h1 {
@@ -54,6 +65,7 @@ h1 {
 
   text-align: center;
 }
+
 h2 {
   font-size: 1.6em;
   line-height: 1.1;
@@ -91,6 +103,10 @@ a {
   transition: color 0.25s;
 }
 
+.menuChoose {
+  margin-top: 0;
+}
+
 a:visited {
   color: var(--text-color);
 }
@@ -98,7 +114,7 @@ a:visited {
 a:hover {
   color: var(--primaryColor);
   animation: text-animate 5s infinite linear;
-  
+
 }
 
 b {
@@ -106,51 +122,63 @@ b {
   font-style: normal;
   font-size: 3.6rem;
 }
+
 @keyframes text-animate {
   0% {
     font-family: Inter, sans-serif;
     transform: translate(0, 0);
   }
+
   10% {
     font-family: "Caveat", cursive;
     transform: translate(1px, -2px);
   }
+
   20% {
     font-family: "Roboto", sans-serif;
     transform: translate(-2px, 1px);
   }
+
   30% {
     font-family: "Old Standard TT", serif;
     transform: translate(3px, 0);
   }
+
   40% {
     font-family: "Lobster", cursive;
     transform: translate(-1px, 2px);
   }
+
   50% {
     font-family: "Montserrat", sans-serif;
     transform: translate(2px, -1px);
   }
+
   55% {
     font-family: "Playfair Display", serif;
     transform: translate(-3px, 1px);
   }
+
   60% {
     font-family: "Pacifico", cursive;
     transform: translate(1px, 3px);
   }
+
   70% {
     font-family: "Merriweather", serif;
     transform: translate(-2px, -2px);
   }
+
   80% {
     font-family: "Old Standard TT", serif;
     transform: translate(3px, -1px);
   }
+
   90% {
     font-family: "Arial", sans-serif;
     transform: translate(-1px, 3px);
   }
+
   100% {
     font-family: Inter, sans-serif;
     transform: translate(0, 0);
@@ -165,7 +193,7 @@ b {
   background-size: cover;
   background-repeat: repeat-y;
 
-  position: absolute;
+  position: fixed;
   left: 0;
   z-index: -1;
 
@@ -176,6 +204,7 @@ b {
   from {
     background-position: 0% 0px;
   }
+
   to {
     background-position: 0% 5222px;
   }
@@ -189,6 +218,7 @@ b {
   from {
     filter: blur(50px);
   }
+
   to {
     filter: blur(0px);
   }
@@ -203,35 +233,32 @@ b {
 /* TIMER */
 
 .timer {
-  position: absolute;
+  position: relative;
   right: 0;
   top: 0;
   width: fit-content;
   padding: 10px 20px;
   margin: 0;
+  font-size: larger;
 }
 
 /* Choose Many */
 
 .imageContainer {
   padding: 5px;
-
   display: flex;
   flex-wrap: wrap;
-
   align-content: center;
   justify-content: center;
-
   height: fit-content;
-  width: 500px;
-
+  width: 652px;
   gap: 25px;
-  padding: 25px;
+  padding: 0 25px;
 }
 
 .imageCard {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
 
   background-size: cover;
   background-position: 50% 50%;
@@ -260,7 +287,7 @@ b {
 
   display: none;
   position: absolute;
-  
+
 
   height: 150%;
   width: 150%;
@@ -295,6 +322,7 @@ b {
     width: 150%;
     transform: translate(-20%, -20%) rotate(-1deg);
   }
+
   100% {
     height: 155%;
     width: 155%;
@@ -321,7 +349,7 @@ b {
   background-color: var(--background-button);
   width: 150px;
   max-width: 150px;
-  
+
   height: fit-content;
 
   overflow: hidden;
@@ -373,8 +401,13 @@ b {
 }
 
 @keyframes moveWheel {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-3465px); }
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-3465px);
+  }
 }
 
 .stopButton {
@@ -419,4 +452,95 @@ br {
 
 .disable-animations *:not(.wheel) {
   animation: none !important;
+}
+
+/* SETTINGS */
+.settings {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* ERROR */
+
+.ErrorPic {
+  height: 100px;
+  width: 100px;
+  min-width: 100px;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.ErrorRow {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 50%;
+}
+
+.ErrorFix {
+  display: flex;
+  flex-wrap: wrap;
+  width: 75%;
+  justify-content: space-between;
+}
+
+/* MEIDA */
+
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: larger;
+  }
+
+  h2 {
+    width: 100%;
+  }
+
+  .imageCard {
+    width: 100px;
+    height: 100px;
+  }
+
+  .imageContainer {
+    width: 94%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .strichka {
+    opacity: 0.2;
+  }
+
+  a {
+    width: 100%;
+    margin-top: 50px;
+  }
+
+  button.stopButton {
+    width: 100%;
+  }
+
+  .wheel-container {
+    width: 100%;
+  }
+
+  .ErrorRow {
+    width: 100%;
+  }
+
+  .menuChoose {
+    margin-top: 50px;
+  }
+
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+::-webkit-scrollbar-track {
+  width: 100px;
 }

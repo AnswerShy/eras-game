@@ -10,6 +10,22 @@ interface data {
     slug: string,
 }
 
+interface errorFix {
+    id: number,
+    uncorrect: string,
+    correct: string,
+}
+
+const PeriodEnum = {
+    antychnist: "Античність",
+    serednovichchya: "Середньовіччя",
+    vidrodzhennya: "Ренесанс",
+    baroko: "Бароко",
+    klasytsyzm: "Класицизм",
+    romantyzm: "Романтизм",
+    modern: "Модерн"
+};
+
 const countOfItemsInSlug = (data: data[], slug: string): number => {
     let counterOfItems = 0;
 
@@ -32,6 +48,7 @@ export default function ChooseManyPage() {
     const [isGameGoing, setIsGameGoing] = useState(true)
     const [timeLeft, setTimeLeft] = useState(60)
     const [round, setRound] = useState<number>(0)
+    const [errorFix, setErrorFix] = useState<errorFix[]>([])
 
     const [data, setData] = useState<data[] | null>(null);
 
@@ -140,7 +157,7 @@ export default function ChooseManyPage() {
             
                 const elements = random_indexes_for_pictures.map((index) => (
                     <div onClick={(e) => logic(data[index].slug, e)} data-index={index} data-slug={data[index].slug} data-item={data[index].item} className="imageCard" style={{ backgroundImage: `url(${data[index].pic ? data[index].pic : "/vite.svg"})`}} key={index}>
-                        <div className="imageCardIn" style={{ backgroundImage: `url(${data[index].pic ? data[index].pic : "/vite.svg"})`}}><a>{data[index].item}</a></div>
+                        <div className="imageCardIn" style={{ backgroundImage: `url(${data[index].pic ? data[index].pic : "/vite.svg"})` }}><a>{data[index].item}</a></div>
                     </div>
                 ))
                 setPicturesElements(elements)
@@ -177,18 +194,36 @@ export default function ChooseManyPage() {
         return () => clearInterval(timer);
     }, []);
 
+    const handleError = (user: string, answer: string, id: number) => {
+        setErrorFix((prev) => [
+            ...prev,
+            {
+                id: id,
+                correct: answer,
+                uncorrect: user,
+            }
+        ])
+    }
+
     const logic = (userAnswer: string, e: React.MouseEvent<HTMLElement>) => {
         const target = e.target as HTMLElement
         if(userAnswer == answerTargetSlug && !target.classList.contains("selected-element") && tries <= answers.length) {
             target.classList.add("selected-element")
             setScore(prevScore => prevScore + 10);
             tries += 1
-            console.log(tries, answers.length, 'added', )
         }
         else if(userAnswer != answerTargetSlug && !target.classList.contains("selected-element") && tries <= answers.length) {
             target.classList.add("selected-element")
             tries += 1
-            console.log(tries, answers.length, 'xyi')
+            console.log(Number(e.currentTarget.getAttribute('data-index')), userAnswer, answerTargetSlug)
+
+            const targetID = Number(e.currentTarget.getAttribute('data-index'))
+
+            const targetSlug = data ? data[targetID].name : ""
+            const targetItem = data ? data[targetID].item : ""
+            console.log(targetSlug, targetItem)
+
+            handleError(PeriodEnum[answerTargetSlug as keyof typeof PeriodEnum], targetSlug, targetID)
         }
         if (tries > answers.length) {
             reselectAnswers()
@@ -197,18 +232,26 @@ export default function ChooseManyPage() {
 
     return isGameGoing ? (
         <>
-            <h1 key={article}>Оберіть предмети які відносяться до епохи <b>{article}</b></h1>
-            <h1 className="timer">{timeLeft}</h1>
-            <h2>кількість вірних відповідей на екрані: {ansersLength}</h2>
+            <h1 key={article}>Оберіть предмети, які відносяться до епохи <b>{article}</b></h1>
+            <h1 className="timer">залишилось {timeLeft}с</h1>
+            <h2>знайди {ansersLength} картинки</h2>
             <div className="imageContainer">
                 {picturesElements}
             </div>
-            <a href="/">В меню</a>
+            <a href="/" className="menuChoose">В меню</a>
         </>
     ) : (
         <>
             <h1>Кінець</h1>
-            <h2>Ви набрали {score} птс</h2>
+            <h2>Ви набрали {score} балів</h2>
+            <div className="ErrorFix">
+                {errorFix.map((error, i) => (
+                    <div key={i} className="ErrorRow">
+                        <div className="ErrorPic" style={{ backgroundImage: `url(${data && data[error.id].pic ? data[error.id].pic : "/vite.svg"})` }}></div>
+                        <div>Ви сказали, що {data && data[error.id].item} це {error.uncorrect}, хоча правильна відповідь це {error.correct}</div>
+                    </div>
+                ))}
+            </div>
             <a href="/">В меню</a>
         </>
     );

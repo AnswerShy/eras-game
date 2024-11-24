@@ -160,7 +160,7 @@ export default function Wheel() {
             const rect = section.getBoundingClientRect();
             if (rect.left < arrowCenter && rect.right > arrowCenter) {
                 if(section.getAttribute("data-slug") == answerTargetSlug) {
-                    setScore(prev => prev + 1)
+                    setScore(prev => prev + 10)
                 }
                 reselectAnswers()
                 tries = tries + 1
@@ -179,9 +179,9 @@ export default function Wheel() {
 
     return isGameGoing ? (
         <>
-            <h1 key={article}>Оберіть предмети які відносяться до епохи <b>{article}</b></h1>
+            <h1 key={article}>Оберіть предмети, які відносяться до епохи <b>{article}</b></h1>
             <h2>{score}</h2>
-            <h1 className="timer">{timeLeft}<br/>спроб: {triesLeft}</h1>
+            <h1 className="timer">залишилось {timeLeft}с<br/>спроб: {triesLeft}</h1>
             <div className="wheel-container">
                 <div className="wheel-arrow arrow-top"></div>
                 <div className="wheel">
@@ -196,7 +196,7 @@ export default function Wheel() {
     ) : (
         <>
             <h1>Кінець</h1>
-            <h2>Ви набрали {score} птс</h2>
+            <h2>Ви набрали {score} балів</h2>
             <a href="/">В меню</a>
         </>
     );
