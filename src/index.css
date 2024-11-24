@@ -333,8 +333,8 @@ b {
 /* WHEEL */
 
 .imageCardWheel {
-  min-width: 150px;
-  min-height: 150px;
+  min-width: 200px;
+  min-height: 200px;
 
   background-size: cover;
   background-position: 50% 50%;
@@ -397,7 +397,7 @@ b {
   display: flex;
   gap: 15px;
   width: max-content;
-  animation: moveWheel 20s linear infinite;
+  animation: moveWheel 60s linear infinite;
 }
 
 @keyframes moveWheel {
