@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import AnimationDisabler from "../components/AnimationDisabler";
+import EnviromentScript from "../utils/envScript";
 
 function Layout() {
+  EnviromentScript()
   return (
     <>
       <div className="strichka"></div>
-      <AnimationDisabler />
       <section className="mainWindow">
         <Outlet />
       </section>

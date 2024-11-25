@@ -23,8 +23,8 @@ createRoot(document.getElementById('root')!).render(
           <Route path={`/wheel`} element={<Wheel />}/>
           <Route path={`/admin`} element={<Admin />}/>
           <Route path={`/about`} element={<About />}/>
-          <Route path={`/settings`} element={<SettingsPage />}/>
       </Route>
+      <Route path={`/settings`} element={<SettingsPage />}/>
       <Route path="*" element={<NoPage />}/>  {/* Not found page */}
     </Routes>
   </BrowserRouter>

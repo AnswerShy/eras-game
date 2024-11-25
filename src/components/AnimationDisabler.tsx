@@ -6,7 +6,12 @@ export default function AnimationDisabler() {
     })
 
     const [isThemeSwitched, setIsThemeSwitched] = useState<boolean>(() => {
-        return localStorage.getItem("themeSwitched") === "true";
+        if(localStorage.getItem("themeSwitched")) {
+            return localStorage.getItem("themeSwitched") === "true"
+        }
+        else {
+            return true
+        }
     })
 
     useEffect(() => {
@@ -23,7 +28,8 @@ export default function AnimationDisabler() {
         if (isThemeSwitched) {
             document.body.classList.add("dark");
             localStorage.setItem("themeSwitched", "true");
-        } else {
+        }
+        else {
             document.body.classList.remove("dark");
             localStorage.setItem("themeSwitched", "false");
         }

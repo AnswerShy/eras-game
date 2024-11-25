@@ -6,7 +6,12 @@ export default function SettingsPage() {
     })
 
     const [isThemeSwitched, setIsThemeSwitched] = useState<boolean>(() => {
-        return localStorage.getItem("themeSwitched") === "true";
+        if(localStorage.getItem("themeSwitched")) {
+            return localStorage.getItem("themeSwitched") === "true"
+        }
+        else {
+            return true
+        }
     })
 
     useEffect(() => {
@@ -23,7 +28,8 @@ export default function SettingsPage() {
         if (isThemeSwitched) {
             document.body.classList.add("dark");
             localStorage.setItem("themeSwitched", "true");
-        } else {
+        }
+        else {
             document.body.classList.remove("dark");
             localStorage.setItem("themeSwitched", "false");
         }
@@ -40,17 +46,16 @@ export default function SettingsPage() {
     }
 
     return (
-        <div className="settings" style={{ width: "500px", height: "500px" }}>
+        <div className="settingsPageMenu">
             <div className="settingOption">
                 Вимкнути анімаціі
-                <input type={"checkbox"} id={"disableAnimationsToggle"} checked={isAnimationsDisabled} onChange={(e) => toggleAnimations(e)}></input>
+                <input type={"checkbox"} id={"disableAnimationsToggle"} checked={isAnimationsDisabled} onChange={(e) => toggleAnimations(e)} className="checkboxMenu"></input>
             </div>
             <div className="settingOption">
                 Темна тема
-                <input type={"checkbox"} id={"themeToggle"} checked={isThemeSwitched} onChange={(e) => toggleTheme(e)}></input>
+                <input type={"checkbox"} id={"themeToggle"} checked={isThemeSwitched} onChange={(e) => toggleTheme(e)} className="checkboxMenu"></input>
             </div>
+            <a href="/" className="menuBack">В меню</a>
         </div>
-        
-        
     )
 }
