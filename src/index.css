@@ -7,9 +7,10 @@
 
   color-scheme: light dark;
 
-  color: rgba(31, 31, 31, 0.87);
+  color: var(--text-color);
+  accent-color: var(--text-color);
   --text-color: rgba(31, 31, 31, 0.87);
-  --background-color: #ffffff;
+  --background-color: #ffe5dd;
 
   --background-button: #313131;
 
@@ -20,7 +21,7 @@
 
 
 
-  --primaryColor: #b71c1c;
+  --primaryColor: #C8553D;
   --primaryColorDarken: #801313;
   --primaryColorLighten: #c54949;
 
@@ -28,9 +29,15 @@
 }
 
 .dark {
-  color: #ffd6d6;
-  --text-color: #ffd6d6;
+  color: var(--text-color);
+  --text-color: #ffe5dd;
   --background-color: #212121;
+  accent-color: var(--text-color);
+}
+
+input:hover {
+  accent-color: var(--primaryColor);
+  cursor: pointer;
 }
 
 /* 
@@ -472,19 +479,23 @@ br {
   min-width: 100px;
   background-size: cover;
   background-position: 50% 50%;
+  box-shadow: var(--shadow);
+  gap: 15px;
 }
 
 .ErrorRow {
   display: flex;
   align-items: center;
   gap: 15px;
-  width: 50%;
+  width: 49%;
+  font-size: x-large;
 }
 
 .ErrorFix {
   display: flex;
   flex-wrap: wrap;
   width: 75%;
+  gap: 15px;
   justify-content: space-between;
 }
 
@@ -529,10 +540,12 @@ br {
 
   .ErrorRow {
     width: 100%;
+    font-size: large;
   }
 
   .menuChoose {
     margin-top: 50px;
+    font-size: large;
   }
 
 }

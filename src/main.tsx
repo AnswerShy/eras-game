@@ -12,6 +12,7 @@ import Wheel from './pages/games/Wheel.tsx';
 import NoPage from './pages/NoPage.tsx';
 import About from './pages/about.tsx';
 import Admin from './pages/Admin.tsx';
+import SettingsPage from './pages/settings.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path={`/wheel`} element={<Wheel />}/>
           <Route path={`/admin`} element={<Admin />}/>
           <Route path={`/about`} element={<About />}/>
+          <Route path={`/settings`} element={<SettingsPage />}/>
       </Route>
       <Route path="*" element={<NoPage />}/>  {/* Not found page */}
     </Routes>

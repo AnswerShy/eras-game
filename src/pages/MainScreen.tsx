@@ -5,7 +5,7 @@ function MainScreen() {
       <a href={"/choosemany"}>Вибір серед багатьох</a>
       <a href={"/wheel"}>Колесо епох</a>
       <a href={"/about"}>Правила</a>
-      {/* <button>Про гру</button> */}
+      {/* <a href={"/settings"}>Налаштування</a> */}
     </>
   )
 }

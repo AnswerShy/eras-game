@@ -248,7 +248,7 @@ export default function ChooseManyPage() {
                 {errorFix.map((error, i) => (
                     <div key={i} className="ErrorRow">
                         <div className="ErrorPic" style={{ backgroundImage: `url(${data && data[error.id].pic ? data[error.id].pic : "/vite.svg"})` }}></div>
-                        <div>Ви сказали, що {data && data[error.id].item} це {error.uncorrect}, хоча правильна відповідь це {error.correct}</div>
+                        <div>Ви сказали, що {data && data[error.id].item} — це {error.uncorrect}, хоча правильна відповідь — це {error.correct}</div>
                     </div>
                 ))}
             </div>
